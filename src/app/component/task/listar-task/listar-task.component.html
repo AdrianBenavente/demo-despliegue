@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <br />
+      <h2 style="text-align: center">Lista de Tareas</h2>
+      <div style="text-align: right">
+        <button mat-raised-button color="warn" routerLink="/components/tareas/nuevo">
+          Nuevo
+        </button>
+      </div>
+      <mat-form-field>
+        <input matInput (keyup)="filter($event)" placeholder="buscar" />
+      </mat-form-field>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Position Column -->
+        <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef>Código</th>
+          <td mat-cell *matCellDef="let element">{{ element.idTask }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="tarea">
+          <th mat-header-cell *matHeaderCellDef>Tarea</th>
+          <td mat-cell *matCellDef="let element">{{ element.nameTask }}</td>
+        </ng-container>
+
+       <!-- Symbol Column -->
+       <ng-container matColumnDef="fechainicio">
+        <th mat-header-cell *matHeaderCellDef>Fecha de inicio</th>
+        <td mat-cell *matCellDef="let element">{{ element.startTask }}</td>
+      </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="fechafin">
+          <th mat-header-cell *matHeaderCellDef>Fecha de fin</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.endDateTask }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="nivel">
+          <th mat-header-cell *matHeaderCellDef>Nivel de dificultad</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.difficultyLevelTask }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="persona">
+            <th mat-header-cell *matHeaderCellDef>Persona</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.person.namePerson }}
+            </td>
+          </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" style="text-align: center">
+      <h2>Registro de Personas</h2>
+      <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+        <mat-form-field class="example-full-width" *ngIf="edicion">
+          <mat-label>idPerson</mat-label>
+          <input matInput placeholder="Id" formControlName="idPerson" />
+        </mat-form-field>
+        <br />
+        <mat-form-field class="example-full-width">
+          <mat-label>Persona</mat-label>
+          <input matInput placeholder="Persona" formControlName="namePerson" />
+          <mat-error
+            *ngIf="obtenerControlCampo('namePerson')?.errors?.['required']"
+          >
+            El nombre es obligatorio.
+          </mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            placeholder="Email"
+            formControlName="emailPerson"
+          />
+          <mat-error
+            *ngIf="obtenerControlCampo('emailPerson')?.errors?.['required']"
+          >
+            El email es obligatorio.
+          </mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field class="example-full-width">
+          <mat-label>Género</mat-label>
+          <mat-select formControlName="genderPerson">
+            <mat-option *ngFor="let p of generos" [value]="p.value">
+              {{p.viewValue}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="obtenerControlCampo('genderPerson')?.errors?.['required']">
+            El género es obligatorio.
+          </mat-error>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="fill" class="example-full-width">
+          <input
+            matInput
+            placeholder="Ingrese fecha"
+            [matDatepicker]="picker"
+            formControlName="birthDatePerson"
+            [max]="maxFecha"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error
+            *ngIf="obtenerControlCampo('birthDatePerson')?.errors?.['required']"
+          >
+           La fecha  es obligatorio.
+          </mat-error>
+        </mat-form-field>
+        <br />
+        <button mat-raised-button color="primary">Aceptar</button>
+        <button mat-raised-button color="warn" routerLink="/components/personas">
+          Cancelar
+        </button>
+        <p>{{ mensaje }}</p>
+      </form>
+    </div>
+  </body>
+</html>
+
